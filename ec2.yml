@@ -1,0 +1,28 @@
+---
+- hosts: ec2
+  tasks:
+    - name: Stop service httpd, if started
+      ansible.builtin.service:
+        name: docker
+        state: stopped
+      become: true
+    - name: Install httpd
+      ansible.builtin.yum:
+        name: httpd
+        update_cache: yes
+      become: true
+    - name: Enable httpd
+      ansible.builtin.service:
+        name: httpd
+        enabled: true
+        state: started
+      become: true
+    - name: Copy app
+      copy:
+        src: ../hello-2048/public_html/
+        dest: /var/www/html/
+        owner: apache
+        group: apache
+        mode: "0644"
+        directory_mode: "0755"
+      become: true

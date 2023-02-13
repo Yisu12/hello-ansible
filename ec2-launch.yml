@@ -1,0 +1,11 @@
+---
+- hosts: localhost
+  gather_facts: false
+  tasks:
+  - name: start an instance with a public IP address
+    amazon.aws.ec2_instance:
+      name: "public-compute-instance"
+      key_name: "clave-lucatic"
+      instance_type: t2.micro
+      security_group: sg-0562854c9b1329776
+      image_id: ami-0b752bf1df193a6c4
