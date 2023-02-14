@@ -54,5 +54,9 @@
   vars:
     ansible_user: ec2-user
   tasks:
-    - name: Make sure server is reacheable
-      ping:
+    - name: Install httpd
+      ansible.builtin.yum:
+        name: httpd
+        update_cache: yes
+      become: true
+      
